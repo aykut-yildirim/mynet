@@ -4,6 +4,7 @@
     - Makefile
     - requirements.txt
     - README.md
+
 ----------------- PROJECT FOLDER STRUCTURE --------------
 
 - <package-name: mynet_scraper>

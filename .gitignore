@@ -1,0 +1,6 @@
+TODO.txt
+data
+__pycache__
+.secret
+.venv
+.DS_Store

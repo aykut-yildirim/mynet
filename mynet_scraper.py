@@ -3,12 +3,11 @@ import re
 import json
 from typing import List, Optional
 from dataclasses import dataclass, make_dataclass, asdict
+import fnmatch
 
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
-
-# # import logging  # TODO buna bakacagim
 
 
 HTML = "https://finans.mynet.com/borsa/hisseler/"
@@ -21,7 +20,6 @@ class Stock:
     code: str
     name: str
     detail: type
-
 
 class MynetScraper:
     """
@@ -40,7 +38,7 @@ class MynetScraper:
         self.stocks: List[Stock] = []
 
     @classmethod
-    def make_soup(cls, html):
+    def __make_soup(cls, html):
         """creates bs4 object from given url
 
         Args:
@@ -55,7 +53,7 @@ class MynetScraper:
         return soup
 
     @classmethod
-    def tr_ing(cls, turkce):
+    def __tr_ing(cls, turkce):
         """_summary_"""
         turkce = turkce.lower()
         turkce = turkce.replace("20", "yirmi")
@@ -75,7 +73,7 @@ class MynetScraper:
 
     def __get_link(self, limit: Optional[int]):
         """for to add links"""
-        souplink = MynetScraper.make_soup(self.base_url)
+        souplink = MynetScraper.__make_soup(self.base_url)
         links_find = souplink.find("tbody").find_all("tr", limit=limit)
         links_find_tqdm = tqdm(
             links_find,
@@ -92,9 +90,9 @@ class MynetScraper:
     def __create_detail_dataclass(cls, data: dict):
         _data = make_dataclass(
             "StockDetail",
-            [(cls.tr_ing(k), type(v)) for k, v in data.items()],
+            [(cls.__tr_ing(k), type(v)) for k, v in data.items()],
         )
-        data: type = _data(**{cls.tr_ing(k): v for k, v in data.items()})
+        data: type = _data(**{cls.__tr_ing(k): v for k, v in data.items()})
         return data
 
     def get_stocks(self, limit: Optional[int] = None):
@@ -105,7 +103,7 @@ class MynetScraper:
         )
         for link in link_list_tqdm:  # TOTO change the algorithm
             dict_item = {}
-            soup = self.make_soup(link)
+            soup = self.__make_soup(link)
             name = soup.find("div", {"flex-list-heading"}).h2.text
             child = soup.find("div", {"flex-list-2-col"}).find_all("li")
             for elem in child:
@@ -122,7 +120,8 @@ class MynetScraper:
         Args:
             stock_name (str, optional): sahare name. Defaults to "".
         ex:
-            -acsel
-            -acSel
-            -ACse
-        """ # TODO
+        """
+        for stock in self.stocks:
+            stock_name = stock_name.upper()
+            if fnmatch.fnmatch(stock.code, "*" + stock_name + "*"):
+                return stock
