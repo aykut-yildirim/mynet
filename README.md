@@ -62,3 +62,4 @@ for stock in scraper.stocks:
 
 ## License
 
+# Mynet_scraper
