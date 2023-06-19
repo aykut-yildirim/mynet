@@ -20,4 +20,4 @@ print(__sep_text)
 for stock in list(filter(lambda x: "ACSEL" in x.code, scraper.stocks)):
     print([s for s in stock.detail.__dict__], sep="\n")
 
-# scraper.write_data(JSON_FILE)
+scraper.write_data(JSON_FILE)
