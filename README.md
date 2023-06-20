@@ -58,7 +58,7 @@ for stock in scraper.stocks:
 ```
 
 ## Contributing
-
+vs code tan yazdım
 
 ## License
 
