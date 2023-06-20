@@ -1,6 +1,6 @@
 # Mynet scraper
 
-Foobar is a Python Class for the information of stocks on the mynet site.
+Mynet scraper is a Python Class for the information of stocks on the mynet site.
 Mynet stocks site: [Mynet](https://finans.mynet.com/borsa/hisseler/)
 
 Returns the contents of the stock you enter the name of.
@@ -58,7 +58,7 @@ for stock in scraper.stocks:
 ```
 
 ## Contributing
-vs code tan yazdım
+
 
 ## License
 
