@@ -2,24 +2,18 @@
 import re
 import json
 from typing import List, Optional
-from dataclasses import dataclass, make_dataclass, asdict
+from dataclasses import make_dataclass, asdict
 import fnmatch
 
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
+from .models import Stock
+
 
 HTML = "https://finans.mynet.com/borsa/hisseler/"
 
-
-@dataclass
-class Stock:
-    """_summary_"""
-
-    code: str
-    name: str
-    detail: type
 
 class MynetScraper:
     """

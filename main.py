@@ -1,5 +1,5 @@
 from os import get_terminal_size
-from mynet_scraper import MynetScraper
+from mynet_scraper.mynet_scraper import MynetScraper
 
 JSON_FILE = "./data/stocks.json"
 LIMIT = 5
