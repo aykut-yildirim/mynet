@@ -1,23 +1,29 @@
-VENV := venv
+VENV := .venv
+PYTHON3 := ${VENV}/bin/python3
+PIP3 := ${VENV}/bin/pip3
 
-all:
-	python -m venv $(VENV)
-	./$(VENV)/bin/pip install -r requirements.txt
-	$(VENV)/bin/activate: requirements.txt
+.PHONY: env venv run clean
 
-venv: 
-	$(VENV)/bin/activate
+make_env:
+	python3 -m pip install --upgrade pip
+	python3 -m venv ${VENV}
 
-run: venv
-	python3 main.py
+install_requirements:
+	PIP3 install --upgrade pip
+	PIP3 install -r requirements.txt
+
+run:
+	@${PYTHON3} main.py
 
 clean:
+	rm -rf __pycache__
 	rm -rf $(VENV)
-	find . -type f -name '*.pyc' -delete
-	tm -rf __pycache__
 
 make_requirements:
-	pip freeze > requirements.txt
+	PIP3 freeze > requirements.txt
 
-.PHONY: 
-	all venv run clean
+venv:
+	source ${VENV}/bin/activate
+
+deneme: venv
+	@which python3
