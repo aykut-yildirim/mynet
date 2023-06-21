@@ -3,17 +3,17 @@
 Mynet scraper is a Python Class for the information of stocks on the mynet site.
 Mynet stocks site: [Mynet](https://finans.mynet.com/borsa/hisseler/)
 
-Returns the contents of the stock you enter the name of.
+I would make a makefile to help you and increase its usefulness.
 
-Returns the contents of the number of stocks you enter.
+Below is a python commands for example usage.
 
 ## Installation
 
 1. Clone the project from GitHub to copy it to your local computer:
 
 ```bash
-git clone https://github.com/username/ai-customer-support-chatbot.git
-cd ai-customer-support-chatbot
+git clone https://github.com/aykut-yildirim/mynet.git
+cd mynet
 ```
 
 2. Create and Activate the Virtual Environment
@@ -23,10 +23,22 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-3. Install requirements
+If you want to install with makefile
+
+```bash
+make make_env
+```
+
+3. Command line to set up the requirements
 
 ```bash
 pip install -r requirements.txt
+```
+
+If you want to install with makefile
+
+```bash
+make install_requirements
 ```
 
 4. Run the Application
@@ -35,7 +47,13 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## Usage
+If you want to install with makefile
+
+```bash
+make run
+```
+
+## Usage example
 
 ```python
 JSON_FILE = "./data/stocks.json"
@@ -43,23 +61,23 @@ LIMIT = 5
 
 from mynet_scraper import MynetScraper
 
-# returns 'stocks list'
+#
 scraper = MynetScraper()
+
+# The code that lists the information of the stocks, the number of which is entered
 scraper.get_stocks(LIMIT)
 
-# returns 'share data'
+# The command that brings the information of the stock whose code is entered
 stock = scraper.get_stock("ACSEL")
 
-# print 'stock details'
+# code that extracts what is requested from the information of the stock whose code is entered
 print(stock.code, stock.name, stock.detail.alis, stock.detail.hissenin_ilk_islem_tarihi, stock.detail.satis, type(stock.detail))
 
 for stock in scraper.stocks:
     print(stock.code.ljust(7), stock.name.ljust(20), stock.detail.alis.ljust(8), stock.detail.satis.ljust(8))
+
+# default save location: ./stocks.json
+scraper.write_data(JSON_FILE)
 ```
-
-## Contributing
-
-
-## License
 
 # Mynet_scraper

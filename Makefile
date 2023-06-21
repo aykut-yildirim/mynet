@@ -13,10 +13,10 @@ install_requirements:
 	PIP3 install -r requirements.txt
 
 run:
-	@${PYTHON3} main.py
+	${PYTHON3} main.py
 
 clean:
-	rm -rf __pycache__
+	rm -rf /mynet_scraper/__pycache__
 	rm -rf $(VENV)
 
 make_requirements:
