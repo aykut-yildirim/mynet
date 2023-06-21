@@ -1,15 +1,15 @@
 VENV := venv
 
 all:
-	python3 -m venv $(VENV)
-	./$(VENV)/bin/pip3 install -r requirements.txt
+	python -m venv $(VENV)
+	./$(VENV)/bin/pip install -r requirements.txt
 	$(VENV)/bin/activate: requirements.txt
 
 venv: 
 	$(VENV)/bin/activate
 
-run:
-	./$(VENV)/bin/python3 main.py
+run: venv
+	python3 main.py
 
 clean:
 	rm -rf $(VENV)
